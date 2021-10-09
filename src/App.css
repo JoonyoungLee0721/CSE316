@@ -3,6 +3,8 @@
         FIRST WE'LL DEFINE OUR SWATCHES, i.e. THE COMPLEMENTARY
         COLORS THAT WE'LL USE TOGETHER IN MULTIPLE PLACES THAT
         TOGETHER WILL MAKE UP A GIVEN THEME
+    
+        @author McKilla Gorilla
     */
   --swatch-foundation: #eeeedd; 
   --swatch-primary: #e6e6e6; 
@@ -42,7 +44,7 @@ body {
   top: 0%;
   width: 100%;
   height: 10%;
-  text-align:center;
+  float:left;
   background-image: linear-gradient(to bottom,         
   #b8b808, #636723);
   color: white;
@@ -53,20 +55,45 @@ body {
   border-radius: 10px;
 }
 
-#top5-sidebar {
+#edit-toolbar {
+  
+  background-color: transparent;
+  float:right;
+}
+
+.top5-button, .top5-button-disabled {
+  font-size:36pt;
+  border-width: 0px;
+  float:left;
+  color: black;
+  cursor: pointer;
+  opacity: 100%;
+}
+
+.top5-button:hover {
+  cursor: pointer;
+  color:black;
+}
+
+.top5-button-disabled {
+  opacity: 0.25; 
+  cursor: not-allowed;
+}
+
+#top5-list-selector {
   position:absolute;
   left: 0%;
   top: 10%;
-  width: 30%;
+  width: 100%;
   height: 80%;
   background-color: var(--swatch-primary);
 }
 
 #top5-workspace {
   position:absolute;
-  left: 30%;
+  left: 0%;
   top: 10%;
-  width: 70%;
+  width: 100%;
   height: 80%;
   background-color: var(--swatch-accent);
 }
@@ -83,7 +110,8 @@ body {
   justify-content: center;
   font-size: 36pt;
 }
-#sidebar-heading {
+
+#list-selector-heading {
   position:absolute;
   left:0%;
   top:0%;
@@ -101,7 +129,7 @@ body {
   float:left;
 }
 
-#sidebar-list {
+#list-selector-list {
   position:absolute;
   left:0%;
   top:10%;
@@ -117,6 +145,13 @@ body {
   margin: 10px;
   padding: 20px;
   border-radius: 25px;
+}
+
+.list-card:aria-disabled,.list-card[aria-disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  pointer-events: none;
 }
 
 .unselected-list-card:hover {
@@ -145,34 +180,6 @@ body {
   top:0%;
   width:100%;
   height:100%;
-}
-
-#edit-toolbar {
-  position:absolute;
-  left:0%;
-  top:20%;
-  height:60%;
-  background-color: var(--swatch-primary);
-  display:flex
-}
-
-.top5-button, .top5-button-disabled {
-  font-size:36pt;
-  border-width: 0px;
-  float:left;
-  color: black;
-  cursor: pointer;
-}
-
-
-.top5-button:hover {
-  cursor: pointer;
-  color:black;
-}
-
-.top5-button-disabled {
-  opacity: 0.25; 
-  cursor: not-allowed;
 }
 
 #edit-numbering {

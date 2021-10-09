@@ -2,64 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-// THIS FUNCTION TESTS TO SEE IF THIS APP HAS
-// DATA IN LOCAL STORAGE. IF IT DOES, TRUE IS
-// RETURNED, ELSE FALSE 
-function isInLocalStorage() {
-  return localStorage.getItem("top5-data") != null;
-}
-
-function loadListsFromJSON(jsonFilePath) {
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-      let text = this.responseText;
-      let lists = JSON.parse(text).top5Lists;
-
-      // GO THROUGH THE LISTS AND SAVE EACH USING THEIR KEY
-      for (let i = 0; i < lists.length; i++) {
-        let listData = lists[i];
-        let listString = JSON.stringify(listData);
-        localStorage.setItem("top5-list-" + listData.key, listString);
-      }
-
-      // THIS IS OUR SESSION DATA THAT WE'LL NEED TO
-      // HELP US DEAL WITH THE LISTS
-      localStorage.setItem("top5-data", JSON.stringify(
-        {
-          "nextKey" : 3,
-          "counter" : 3,
-          "keyNamePairs" : [
-            {"key": "0", "name": "Games"},
-            {"key": "1", "name": "Movies"}, 
-            {"key": "2", "name": "Pink Floyd Songs"}
-          ]
-        }));
-      launch();
-    }
-  }
-  xmlhttp.open("GET", jsonFilePath, true);
-  xmlhttp.send();
-}
-
-function launch() {
-  // IF NO DATA IS IN LOCAL STORAGE THEN LOAD ALL THE TEST
-  // DATA FROM THE JSON FILE AND PUT IT THERE
-  ReactDOM.render(
-    <React.StrictMode>
+/*
+  This is the entry-point for our application. Notice that we
+  inject our store into all the components in our application.
+  
+  @author McKilla Gorilla
+*/
+import { GlobalStoreContext, useGlobalStore } from './store'
+const AppWrapper = () => {
+  const store = useGlobalStore();
+  return (
+    <GlobalStoreContext.Provider value={store}>
       <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+    </GlobalStoreContext.Provider>
+  )
 }
-
-if (!isInLocalStorage()) {
-  loadListsFromJSON("./data/default_lists.json");
-}
-else {
-  launch();
-}
+ReactDOM.render(
+  <React.StrictMode>
+    <AppWrapper />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
